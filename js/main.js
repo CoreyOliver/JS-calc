@@ -26,11 +26,10 @@ const keys = document.querySelector('.calculator-buttons');
             //have any special buttons been clicked
             switch(value) {
                 case '=' :
-                    //calc answer
-                    break;
+                    this.calcAnswer(this.displayText)
+                break;
                 case 'AC' :
-                    displayText = '0'
-                    prevTotal = null
+                    this.clearAll()
                     break;
                 case '.' :
                     if(this.displayText == 0) {
@@ -38,7 +37,7 @@ const keys = document.querySelector('.calculator-buttons');
                     } else {
                         this.addText(value)
                     }
-                    break;
+                    break;  
                 default:
                     this.addText(value)
                     break;
@@ -62,6 +61,17 @@ const keys = document.querySelector('.calculator-buttons');
 
         outputText(text) {
             document.querySelector('.calculator-screen').value = text
+        },
+
+        calcAnswer(equation) {
+            let result = Function("return " + equation)()
+            this.outputText(result)
+        },
+
+        clearAll() {
+            this.displayText = '0'
+            this.prevTotal = null
+            this.outputText(this.displayText)
         }
 
     }
